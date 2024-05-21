@@ -1,21 +1,25 @@
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.*;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 class Main {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int K = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
         int[] A = new int[N];
+        int count = 0;
+
         for(int i=0; i<N; i++) {
-            A[i] = sc.nextInt();
+            st = new StringTokenizer(br.readLine());
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 그리디 알고리즘 -> 최대한 큰 동전 먼저 사용하기
-        int count = 0;
         for(int i=N-1; i>=0; i--) {
-            if(A[i] <= K) {
-                count += (K/A[i]);
+            if (A[i] <= K) {
+                count += K / A[i];
                 K = K % A[i];
             }
         }
