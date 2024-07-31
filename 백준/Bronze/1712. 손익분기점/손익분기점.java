@@ -11,21 +11,10 @@ public class Main {
         long B = Integer.parseInt(st.nextToken());
         long C = Integer.parseInt(st.nextToken());
 
-        long count = 0;
-
-        while(true) {
-            count++;
-            long tempA = A;
-            long tempB = B*count;
-            long tempC = C*count;
-            if(tempA + tempB < tempC) {
-                break;
-            }else if(count > 2100000000) {
-                count = -1;
-                break;
-            }
+        if(B>=C) {
+            System.out.println(-1);
+        } else {
+            System.out.println(A/(C-B) +1);
         }
-
-        System.out.println(count);
     }
 }
