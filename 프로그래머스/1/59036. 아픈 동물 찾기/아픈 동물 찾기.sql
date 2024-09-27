@@ -6,4 +6,3 @@ FROM
     ANIMAL_INS 
 WHERE 
     INTAKE_CONDITION = 'Sick'
-    
