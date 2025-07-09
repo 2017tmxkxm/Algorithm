@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+//개똥벌레_누적합
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,35 +24,25 @@ public class Main {
               else J[size]++;
         }
 
-        int[] SS = new int[H+1];
-        int[] JS = new int[H+1];
-
-        //석순 구간합 구하기
+        //석순/종유석 구간합 구하기
+        //S[i] = S[i+1] + S[i]
         for(int i=H-1; i>0; i--) {
-            SS[i] = SS[i+1] + S[i];
-        }
-
-        //종유석 구간합 구하기
-        for(int i=H-1; i>0; i--) {
-            JS[i] = JS[i+1] + J[i];
-        }
-
-        //석순/종유석 구간합 합치기
-        int[] A = new int[H+1];
-        for(int i=1; i<=H; i++) {
-            A[i] = SS[i] + JS[JS.length-i];
+            S[i] = S[i+1] + S[i];
+            J[i] = J[i+1] + J[i];
         }
 
         int count = 0;
-        int temp = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
         for(int i=1; i<=H; i++) {
-            if(temp > A[i]) temp = A[i];
+            int temp = S[i] + J[H+1-i];
+            if(temp < min) {
+                min = temp;
+                count = 1;
+            } else if (temp==min) {
+                count++;
+            }
         }
 
-        for(int i=1; i<=H; i++) {
-            if(temp == A[i]) count++;
-        }
-
-        System.out.println(temp + " " + count);
+        System.out.println(min + " " + count);
     }
 }
