@@ -24,20 +24,31 @@ public class Main {
 
         Collections.sort(arrayList);
 
-        int temp = arrayList.get(K-1).sum;
-        int rank = 1;
+        arrayList.get(0).rank = 1;
+        int end_point = 0;
 
-        for(int i=0; i<K; i++) {
-            if(arrayList.get(i).sum > temp) rank++;
+        for(int i=1; i<arrayList.size(); i++) {
+            int temp_sum = arrayList.get(i-1).sum;
+
+            if(arrayList.get(i).index == K) {
+                end_point = i;
+            }
+
+            if(temp_sum == arrayList.get(i).sum) {
+                arrayList.get(i).rank = arrayList.get(i-1).rank;
+            }else {
+                arrayList.get(i).rank = i+1;
+            }
         }
 
-        System.out.println(rank);
+        System.out.println(arrayList.get(end_point).rank);
     }
 }
 
 class Score_8979 implements Comparable<Score_8979> {
     int index;
     int sum;
+    int rank;
 
     public Score_8979(int index, int sum) {
         this.index = index;
