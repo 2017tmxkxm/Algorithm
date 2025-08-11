@@ -1,29 +1,36 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Stack;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-        for(int i=0; i<T; i++) {
-            int P = 0;
-            int S = 0;
-            String s = sc.next();
-            for(int j=0; j<s.length(); j++) {
-                if(s.charAt(j) == '(') {
-                    P++;
-                }else if(s.charAt(j) == ')'){
-                    S++;
-                    if(P < S) {
+        for(int i=0; i<N; i++) {
+            char[] charArray = br.readLine().toCharArray();
+            Stack<Character> stack = new Stack<>();
+            boolean isEnd = false;
+            for(char now : charArray) {
+                if(now == '(') {
+                    stack.push(now);
+                }else{
+                    if(stack.isEmpty()) {
                         System.out.println("NO");
+                        isEnd = true;
                         break;
+                    }else{
+                        stack.pop();
                     }
                 }
             }
-            if (P == S && P != 0) {
-                System.out.println("YES");
-            }else if(P>S) {
-                System.out.println("NO");
+            if(!isEnd) {
+                if(stack.isEmpty()) {
+                    System.out.println("YES");
+                }else{
+                    System.out.println("NO");
+                }
             }
         }
     }
